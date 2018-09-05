@@ -56,8 +56,8 @@
 # Model relationships explained
 
 
-![](https://github.com/vishalshirke7/mini-Quora/blob/master/P_20180904_152742%20(1).jpg)
+![](https://github.com/vishalshirke7/miniQ/blob/master/P_20180904_152742%20(1).jpg)
 
-![](https://github.com/vishalshirke7/mini-Quora/blob/master/P_20180904_152804%20(1).jpg)
+![](https://github.com/vishalshirke7/miniQ/blob/master/P_20180904_152804%20(1).jpg)
 
-![](https://github.com/vishalshirke7/mini-Quora/blob/master/P_20180904_152811%20(1).jpg)
+![](https://github.com/vishalshirke7/miniQ/blob/master/P_20180904_152811%20(1).jpg)
