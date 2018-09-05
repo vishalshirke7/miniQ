@@ -1,0 +1,25 @@
+{% extends 'quora/base.html' %}
+
+
+
+{% block content %}
+
+    {% if questions %}
+        {%  for question in questions %}
+
+             <div class="page-header">
+                 <h3 class="text-info" class="font-weight-bold"><a href="{% url 'quora:all_answers' qid=question.id   %}">{{question.question}}</a></h3>
+            </div>
+        {% endfor %}
+
+    {% else %}
+            <h3 class="text-info" align="center" class="font-weight-bold">You haven't asked any questions yet  :(<</h3>
+
+     {% endif %}
+
+
+
+
+
+
+{% endblock %}

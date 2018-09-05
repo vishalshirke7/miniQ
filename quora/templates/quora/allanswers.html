@@ -1,0 +1,130 @@
+{% extends 'quora/base.html' %}
+
+{% block stylesheet %}
+<style>
+.well {margin-bottom:0px;margin-top:27px;border-radius:0;border:0.5px none;background-color:#FFFFFF}
+.list-group > li {margin-bottom: 20px;border:0 none}
+
+
+</style>
+
+{% endblock %}
+{% block javascript %}
+<script type="text/javascript">
+$(function () {
+  // Delegating to `document` just in case.
+  $(document).on("hidden.bs.modal", "#myModal", function () {
+    $(this).find("#yui").html(""); // Just clear the contents.
+  });
+});
+$(document).ready(function()
+{
+
+    $(".btn").click(function()
+    {
+
+    var ansid = $(this).attr("id");
+    if (ansid.indexOf('a') > -1)
+    {
+        newansid = ansid.substring(3);
+        $.ajax({
+        url: '{% url 'quora:see_all_upvoters' %}',
+        type: 'get',
+        data: {
+          'ansid': newansid
+        },
+        dataType: 'json',
+        success: function (data) {
+               <!--console.log(ansid);-->
+          $.each(data.upvoters, function (index, upvote) {
+                $('.modal-body').append('<li>' + upvote + '</li>');
+            })
+            <!--$('.modal-body').text(data.upvoters);-->
+
+            $('#myModal').modal('show');
+        },
+        error: function(data){
+            alert('server error');
+        }
+        });
+    }
+    else
+    {
+
+        $.ajax({
+        url: '{% url 'quora:ans_upvotes' %}',
+        type: 'get',
+        data: {
+          'ansid': ansid
+        },
+        dataType: 'json',
+        success: function (data) {
+        if(data.not_loggedin)
+        {
+                    alert(data.notify);
+        }
+        else if(data.is_voted){
+                alert(data.error_message);
+        }
+        else
+        {
+                console.log(ansid);
+            var a = ansid+"_upvote";
+            var b = ansid+"_ab"
+            console.log(a);
+          $("#"+a).html(data.upvotes);
+          $("#"+b).css("color","orangered");
+
+        }
+
+        }
+      });
+
+    }
+
+
+    });
+
+});
+    </script>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <h3 style="word-wrap: break-word;"><strong>{{question.question}}</strong></h3>
+    <h4 class="text-info">(Total upvotes - {{question.total_upvotes}})</h4>
+    <!--<h3>{{quest}}</strong></h3>-->
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h5 class="modal-title">All Upvoters</h5>
+                </div>
+                <div class="modal-body" id="yui">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+<ul class="list-group">
+        {% if answer_list %}
+            {%  for answer in answer_list %}
+            <div class="well well-sm"><span class="glyphicon glyphicon-user" style="margin-right:20px;color:#0000FF"></span><strong>{{answer.user_id.fname}}</strong></div>
+            <li class="list-group-item"><p class="text-justify" style="word-wrap: break-word;text-align: justify;text-justify: inter-word;
+                                text-indent:1cm;">{{answer.answer}}</p></li>
+                <button  style="align-right" id="{{answer.id}}" type="button" class="btn btn-default" ><span id="{{answer.id}}_ab" class="glyphicon glyphicon-arrow-up"></span>
+                    Upvote <span id="{{answer.id}}_upvote" style="color:red;padding-left:15px;"> <strong>{{answer.answer_upvotes}}</strong></span></button>
+                <button  style="align-right" id="abc{{answer.id}}" type="button" class="btn btn-default" >
+                    see all upvoters </button>
+            {% endfor %}
+        {% else %}
+            <div  align="center" class="panel panel-default">This question has no answers</div>
+        {% endif %}
+  </ul>
+</div>
+{% endblock %}

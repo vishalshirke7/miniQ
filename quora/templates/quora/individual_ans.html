@@ -1,0 +1,37 @@
+{% extends 'quora/base.html' %}
+
+
+
+{% block content %}
+    {% if individual %}
+        {%  for upvote in upvotes %}
+
+             <div class="page-header">
+                 <h3 class="text-info" class="font-weight-bold"><a href="{% url 'quora:all_answers' qid=upvote.upvoted_answer.question_id.id   %}">{{upvote.upvoted_answer.question_id.question}}</a></h3>
+            </div>
+            <li class="list-group-item" ><p class="text-justify" style="word-wrap: break-word;text-align: justify;text-justify: inter-word;
+                        text-indent:1cm;">{{upvote.upvoted_answer.answer}}</p></li>
+<li class="list-group-item" ><span style="color:blue;margin-right:550px"> <strong>Upvoted By You</strong></span><span>
+    <strong>Answered By {{upvote.upvoted_answer.user_id.fname}}</strong></span></li>
+
+        {% endfor %}
+
+
+    {% else %}
+
+        {%  if answers %}
+            {%  for answer in answers %}
+
+             <div class="page-header">
+                 <h3 class="text-info" class="font-weight-bold"><a href="{% url 'quora:all_answers' qid=answer.question_id.id   %}">{{answer.question_id.question}}</a></h3>
+            </div>
+            <li class="list-group-item" ><p class="text-justify" style="word-wrap: break-word;text-align: justify;text-justify: inter-word;
+                        text-indent:1cm;">{{answer.answer}}</p></li>
+
+            {% endfor %}
+        {% else %}
+                  <h3 class="text-info" align="center" class="font-weight-bold">You haven't answered any answers yet  :(<</h3>
+        {% endif %}
+
+    {% endif %}
+{% endblock %}

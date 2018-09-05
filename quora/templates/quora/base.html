@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>{% block head %}Bootstrap Example{% endblock %}</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+     {% block javascript %} {% endblock %}
+  <style>
+  body {padding-top: 90px;}
+ .navbar-brand {height:70px; padding:25px;font-size:30px;font-family: "Arial Black", Gadget, sans-serif;}
+  .navbar-nav > li > a {padding-top:25px !important; padding-bottom:25px !important;}
+.navbar {min-height:70px !important}
+ <!--.form-control {width:100%}-->
+  </style>
+    {% block stylesheet %}{% endblock %}
+</head>
+<body>
+
+<nav class="navbar  navbar-default navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <a class="navbar-brand"><strong style="color:#191970;">mini-Quora</strong></a>
+    </div>
+    <ul class="nav navbar-nav">
+        <!--{% with url_name=request.resolver_match.url_name %}-->
+      <li class="{% if request.resolver_match.view_name == 'quora:home' %}active{% endif %}"><a href="{% url 'quora:home' %}">Home</a></li>
+      <li class="{% if request.resolver_match.view_name == 'quora:add' %}active{% endif %}"><a href="{% url 'quora:add' %}">Ask a Question</a></li>
+      <li class="{% if request.resolver_match.view_name == 'quora:addanswer' %}active{% endif %}"><a href="{% url 'quora:addanswer'  %}">Answer a Question</a></li>
+    <!--{% endwith %}-->
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+        {% if  logged_in %}
+        <li><a><span class="glyphicon glyphicon-user"></span> Hey {{ user.fname }}</a></li>
+      <li><a href="{% url 'quora:logout' %}"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+    </ul>
+      {% else %}
+      </ul>
+        <ul class="nav navbar-nav navbar-right">
+      <li><a href="{% url 'quora:index' %}"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+      <li><a href="{% url 'quora:login' %}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+    </ul>
+      {% endif %}
+  </div>
+</nav>
+<div class="container">
+  <div class="row">
+    <nav class="col-sm-3">
+      <ul class="nav nav-pills nav-stacked" data-spy="affix">
+          {% if  logged_in %}
+          <li class="{% if request.resolver_match.view_name == 'quora:all_questions' %}active{% endif %}"><a href="{% url 'quora:all_questions' %}">All Questions</a></li>
+          <li class="{% if request.resolver_match.view_name == 'quora:individual_questions' %}active{% endif %}"><a href="{% url 'quora:individual_questions' %}">My Questions</a></li>
+          <li class="{% if request.resolver_match.view_name == 'quora:individual_answers' %}active{% endif %}"><a href="{% url 'quora:individual_answers' %}">My Answers</a></li>
+          <li class="{% if request.resolver_match.view_name == 'quora:individual_upvoted' %}active{% endif %}"><a href="{% url 'quora:individual_upvoted' %}">Upvoted by me</a></li>
+          <li class="{% if request.resolver_match.view_name == 'quora:past_hour_highest_votes' %}active{% endif %}"><a href="{% url 'quora:past_hour_highest_votes' %}" >Highest upvoted question over past hour</a></li>
+          <li class="{% if request.resolver_match.view_name == 'quora:highest_upvoted_question' %}active{% endif %}"><a href="{% url 'quora:highest_upvoted_question'  %}">Highest upvoted question ever</a></li>
+          <li class="{% if request.resolver_match.view_name == 'quora:past_hour_highest_votes_answer' %}active{% endif %}"><a href="{% url 'quora:past_hour_highest_votes_answer'  %}" >Highest upvoted answer over past hour</a></li>
+          <li class="{% if request.resolver_match.view_name == 'quora:highest_upvoted_answer' %}active{% endif %}"><a href="{% url 'quora:highest_upvoted_answer'  %}">Highest upvoted answer ever</a></li>
+          {% else %}
+                    <li class="{% if request.resolver_match.view_name == 'quora:all_questions' %}active{% endif %}"><a href="{% url 'quora:all_questions' %}">All Questions</a></li>
+            <li class="{% if request.resolver_match.view_name == 'quora:past_hour_highest_votes' %}active{% endif %}"><a href="{% url 'quora:past_hour_highest_votes' %}">Highest upvoted question over past hour</a></li>
+          <li class="{% if request.resolver_match.view_name == 'quora:highest_upvoted_question' %}active{% endif %}"><a href="{% url 'quora:highest_upvoted_question'  %}">Highest upvoted question ever</a></li>
+          <li class="{% if request.resolver_match.view_name == 'quora:past_hour_highest_votes_answer' %}active{% endif %}"><a href="{% url 'quora:past_hour_highest_votes_answer'  %}" >Highest upvoted answer over past hour</a></li>
+          <li class="{% if request.resolver_match.view_name == 'quora:highest_upvoted_answer' %}active{% endif %}"><a href="{% url 'quora:highest_upvoted_answer'  %}">Highest upvoted answer ever</a></li>
+
+          {% endif %}
+      </ul>
+    </nav>
+
+        <div class="col-sm-9">
+
+            {% block content %}
+            {% endblock %}
+  </div>
+  </div>
+
+</div>
+</body>
+</html>

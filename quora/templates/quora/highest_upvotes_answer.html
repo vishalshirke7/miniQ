@@ -1,0 +1,63 @@
+{% extends 'quora/base.html' %}
+
+{% block stylesheet %}
+<style>
+.well {margin-bottom:0px;margin-top:27px;border-radius:0;border:0.5px none;background-color:#FFFFFF}
+.list-group > li {margin-bottom: 20px;border:0 none}
+#head {font-family: "Arial Black", Gadget, sans-serif;color:lightsteelgrey;}
+#head1 {font-family: "Arial Black", Gadget, sans-serif;color:lightsteelgrey;}
+</style>
+
+{% endblock %}
+
+
+{% block content %}
+
+            {% if ans_id %}
+             <!--<div class="page-header">-->
+                 <!--<h4 class="text-info" class="font-weight-bold"><a>{{ans_id.question_id.question}}</a></h4>-->
+                 <!--<h3 class="text-info" class="font-weight-bold"><a>{{ans_id.answer}}</a></h3>-->
+
+            <!--</div>-->
+            {% if past_one_hour %}
+
+                        <div class="container-fluid">
+                            <h3 style="word-wrap: break-word;margin-bottom:50px"><a href="{% url 'quora:all_answers' qid=ans_id.question_id.id   %} ">{{ans_id.question_id.question}}</a></h3>
+                    <ul class="list-group">
+
+                        <div class="well well-sm"><span class="glyphicon glyphicon-user" style="margin-right:20px;color:#0000FF"></span><strong>Answered By     {{ans_id.user_id.fname}}</strong></div>
+                        <li class="list-group-item"><p class="text-justify" style="word-wrap: break-word;text-align: justify;text-justify: inter-word;
+                                            text-indent:1cm;">{{ans_id.answer}}</p></li>
+                        <p style="font-size:17px;">  <strong>Total Upvotes  - <span style="color:red;margin-left:12px">{{ans_id.answer_upvotes}}</span></strong></p>
+                            <div class="well"><h3 id="head1">This Answer has got highest upvotes in past one hour</h3></div>
+                      </ul>
+                    </div>
+
+
+            {% else %}
+                                <div class="container-fluid">
+                            <h3 style="word-wrap: break-word;margin-bottom:50px"><a href="{% url 'quora:all_answers' qid=ans_id.question_id.id   %} ">{{ans_id.question_id.question}}</a></h3>
+                    <ul class="list-group">
+
+                        <div class="well well-sm"><span class="glyphicon glyphicon-user" style="margin-right:20px;color:#0000FF"></span><strong>Answered By     {{ans_id.user_id.fname}}</strong></div>
+                        <li class="list-group-item"><p class="text-justify" style="word-wrap: break-word;text-align: justify;text-justify: inter-word;
+                                            text-indent:1cm;">{{ans_id.answer}}</p></li>
+                        <p style="font-size:17px;">  <strong>Total Upvotes - <span style="color:red;margin-left:12px">{{ans_id.answer_upvotes}}</span></strong></p>
+                            <div class="well"><h3 id="head">This Answer has got highest upvotes through out the website</h3></div>
+                      </ul>
+                    </div>
+
+
+            {% endif %}
+
+            {% else %}
+            <div class="page-header">
+                 <h3 class="text-info" class="font-weight-bold"><a>No question's answer has been voted in last one hour</a></h3>
+            </div>
+
+
+            {% endif %}
+
+
+{% endblock %}
+

@@ -1,0 +1,60 @@
+{% extends 'quora/base.html' %}
+
+{% block stylesheet %}
+<style>
+.panel-default > .panel-heading {background-color:#ffffff;padding-top:5px;padding-bottom:5px;}
+.panel-footer {background-color:#ffffff}
+</style>
+
+{% endblock %}
+
+{% block content %}
+    <div class="panel-group">
+     {% if questions %}
+           {% if all_que %}
+                {%  for question in questions %}
+
+                    {% if question.answers_set.all %}
+                        <div class="panel panel-default">
+                            <div class="panel-heading"><h4><strong style="word-wrap: break-word;"><a href="{% url 'quora:all_answers' qid=question.id %}">{{question.question}}</a></strong></h4></div>
+                                {%  for answer in question.answers_set.all|slice:":1" %}
+                            <div class="panel-body"><span class="glyphicon glyphicon-user" style="margin-right:20px;color:#0000FF"></span><strong>{{answer.user_id.fname}}  {{answer.user_id.lname}}</strong></div>
+                                        <div class="panel-body"><p style="word-wrap: break-word;">{{answer.answer}}</p></div>
+                                {% endfor %}
+                                <!--<div class="panel-footer">Published on {{question.date}} </div>-->
+                         </div>
+                    {% else %}
+
+                                <div class="panel panel-default">
+                                    <div class="panel-heading"><h4><strong style="word-wrap: break-word;"><a href="{% url 'quora:all_answers' qid=question.id %}">{{question.question}}</a></strong></h4></div>
+                                                <div class="panel-body"><p  align="center" class="lead">This question has no answers yet</p></div>
+                                    <!--<div class="panel-footer">Published on {{question.date}}</div>-->
+                                 </div>
+                    {% endif %}
+                {% endfor %}
+            {% else %}
+
+                {%  for question in questions %}
+                    {% if question.answers_set.all %}
+                        <div class="panel panel-default">
+                            <div class="panel-heading"><h4><strong style="word-wrap: break-word;"><a href="{% url 'quora:all_answers' qid=question.id %}">{{question.question}}</a></strong></h4></div>
+                            {%  for answer in question.answers_set.all|slice:":1" %}
+                                    <div class="panel-body"><span class="glyphicon glyphicon-user" style="margin-right:20px;color:#0000FF"></span><strong>{{answer.user_id.fname}}  {{answer.user_id.lname}}</strong></div>
+                                    <div class="panel-body"><p style="word-wrap: break-word;">{{answer.answer}}</p></div>
+                            {% endfor %}
+                            <!--<div class="panel-footer">Published on {{question.date}}</div>-->
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+
+
+     {% else %}
+        <h3 class="text-info" class="font-weight-bold">No questions have been asked on this website yet <span style="color:red"> :(<</span></h3>
+        <h3 class="bg-success" class="font-weight-bold"><a href="{% url 'quora:add' %}">Be the first one</a></h3>
+
+     {% endif %}
+        </div>
+
+{% endblock %}
+

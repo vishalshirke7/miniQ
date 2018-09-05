@@ -1,0 +1,37 @@
+{% extends 'quora/base.html' %}
+
+
+
+{% block content %}
+
+        {%  for question in questions %}
+            <div class="panel panel-default">
+                <div class="panel-body"><h4><strong>{{question.question}}</strong></h4></div>
+                <!--<div class="panel-footer">Asked by {{i.date}}</div>-->
+                <div class="panel-heading">
+        <h5 class="panel-title">Answer
+          <a data-toggle="collapse"  href="#{{question.id}}">
+              <span class="glyphicon glyphicon-pencil"></span></a>
+        </h5>
+      </div>
+                <div id="{{question.id}}" class="panel-collapse collapse">
+                    <form method="post">
+        {% csrf_token %}
+    <div class="form-group">
+        <input type="hidden" id="custId" name="xyz" value="{{question.id}}">
+        {{form.answer.errors}}
+        <!--<label for="{{form.answer.html_name}}">{{form.answer.label_tag}}</label>-->
+      <textarea name="{{form.answer.html_name}}" class="form-control"  rows="10"  required placeholder="Start typing here..." id="id_{{form.answer.html_name}}"></textarea>
+    </div>
+      <input type="submit"  value="Answer" class="btn btn-info">
+  </form>
+        <!--<div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,-->
+        <!--sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,-->
+        <!--quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>-->
+      </div>
+
+            </div>
+
+        {% endfor %}
+
+{% endblock %}

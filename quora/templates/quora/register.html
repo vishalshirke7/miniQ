@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">-->
+    <!--<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>-->
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>-->
+    <!--<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>-->
+
+        <style>
+        #an {height:70px;margin-top:30px;font-size:30px;font-family: "Arial Black", Gadget, sans-serif;}
+
+    </style>
+
+</head>
+<body>
+
+<div class="container" class="bg-light text-dark">
+        <div class="page-header">
+            <a id="an" href="{% url 'quora:home' %}"><strong style="color:#191970;">mini-Quora</strong></a>
+        <h2 class="text-info text-center" class="font-weight-bold">Welcome to mini-Quora</h2>
+        </div>
+    </div>
+
+<div class="container" align="center">
+        <!--<div class="row centered-form">-->
+        <!--<div class="col-md-8 col-md-8 col-md-8 col-md-offset-2 col-md-offset-4">-->
+        	<!--<div class="panel panel-primary">-->
+        		<!--<div class="panel-heading">-->
+			    		<!--<h3 class="panel-title">Please sign up to begin</h3>-->
+			 			<!--</div>-->
+			 			<!--<div class="panel-body">-->
+			    		<form method="post" class="form-horizontal">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="id_{{form.fname.html_name}}" class="control-label col-sm-2">{{form.fname.label_tag}}</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" name="{{form.fname.html_name}}" class="form-control" required  id="id_{{form.fname.html_name}}">
+                                    </div>
+                                {{form.fname.errors}}
+                            </div>
+
+                            <div class="form-group">
+                               <label for="id_{{form.lname.html_name}}" class="control-label col-sm-2">{{form.lname.label_tag}}</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" name="{{form.lname.html_name}}" class="form-control" required  id="id_{{form.lname.html_name}}">
+                                    </div>
+                                {{form.lname.errors}}
+                            </div>
+
+                            <div class="form-group">
+                                <label for="id_{{form.email.html_name}}" class="control-label col-sm-2">{{form.email.label_tag}}</label>
+                                    <div class="col-sm-10">
+                                        <input type="email" name="{{form.email.html_name}}" class="form-control" required  id="id_{{form.email.html_name}}">
+                                    </div>
+                                {{form.email.errors}}
+                            </div>
+
+                            <div class="form-group">
+                                <label for="id_{{form.password.html_name}}" class="control-label col-sm-2">{{form.password.label_tag}}</label>
+                                    <div class="col-sm-10">
+                                        <input type="password" name="{{form.password.html_name}}" class="form-control" required  id="id_{{form.password.html_name}}">
+                                    </div>
+                                {{form.password.errors}}
+                            </div>
+
+                            <div class="form-group">
+                                <label for="id_{{form.repassword.html_name}}" class="control-label col-sm-2">{{form.repassword.label_tag}}</label>
+                                    <div class="col-sm-10">
+                                        <input type="password" name="{{form.repassword.html_name}}" class="form-control" required  id="id_{{form.repassword.html_name}}">
+                                    </div>
+                                    {{form.repassword.errors}}
+                            </div>
+
+			    			<input type="submit" value="Register" class="btn btn-primary btn-md">
+
+			    		</form>
+			    	<!--</div>-->
+	    		<!--</div>-->
+    		<!--</div>-->
+    	<!--</div>-->
+    <h3>Already have an account?    <a href="{% url 'quora:login' %}" class="btn btn-success btn-lg" role="button"> Login</a></h3>
+    </div>
+
+
