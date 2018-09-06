@@ -2,9 +2,23 @@
 
 {% block stylesheet %}
 <style>
-.well {margin-bottom:0px;margin-top:27px;border-radius:0;border:0.5px none;background-color:#FFFFFF}
-.list-group > li {margin-bottom: 20px;border:0 none}
-
+.well {margin-bottom:0px;margin-top:20px;border-radius:0;border:0.5px none;background-color:#FFFFFF}
+.list-group > li {margin-bottom: 10px;border:0 none}
+.round {
+    display: inline-block;
+    height: 30px;
+    width: 30px;
+    line-height: 30px;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+    background-color: #222;
+    color: #FFF;
+    text-align: center;
+    margin-right:15px;
+}
+.round.blue {
+    background-color: #3EA6CE;
+}
 
 </style>
 
@@ -114,7 +128,8 @@ $(document).ready(function()
 <ul class="list-group">
         {% if answer_list %}
             {%  for answer in answer_list %}
-            <div class="well well-sm"><span class="glyphicon glyphicon-user" style="margin-right:20px;color:#0000FF"></span><strong>{{answer.user_id.fname}}</strong></div>
+    <div class="well well-sm"><div class="round blue"><span class="glyphicon glyphicon-user"></span></div><strong>{{answer.user_id.fname}} {{answer.user_id.lname}}</strong>
+        <p><small style="font-size:12px;margin-left:45px">Answered on {{answer.ans_date.date}}</small></p></div>
             <li class="list-group-item"><p class="text-justify" style="word-wrap: break-word;text-align: justify;text-justify: inter-word;
                                 text-indent:1cm;">{{answer.answer}}</p></li>
                 <button  style="align-right" id="{{answer.id}}" type="button" class="btn btn-default" ><span id="{{answer.id}}_ab" class="glyphicon glyphicon-arrow-up"></span>

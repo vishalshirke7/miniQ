@@ -3,9 +3,33 @@
 {% block stylesheet %}
 <style>
 .well {margin-bottom:0px;margin-top:27px;border-radius:0;border:0.5px none;background-color:#FFFFFF}
-.list-group > li {margin-bottom: 20px;border:0 none}
-#head {font-family: "Arial Black", Gadget, sans-serif;color:lightsteelgrey;}
-#head1 {font-family: "Arial Black", Gadget, sans-serif;color:lightsteelgrey;}
+.list-group > li {margin-bottom:20px;border:0 none}
+.list-group  {margin-bottom:8px;}
+#io,#io1 {margin-top:8px;margin-bottom:8px;}
+.numberCircle {
+    width: 60px;
+    margin-left:19px;
+    line-height: 60px;
+    border-radius: 50%;
+    text-align: center;
+    font-size: 32px;
+    border: 2px solid #666;
+}
+.round {
+    display: inline-block;
+    height: 30px;
+    width: 30px;
+    line-height: 30px;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+    background-color: #222;
+    color: #FFF;
+    text-align: center;
+    margin-right:15px;
+}
+.round.blue {
+    background-color: #3EA6CE;
+}
 </style>
 
 {% endblock %}
@@ -14,23 +38,20 @@
 {% block content %}
 
             {% if ans_id %}
-             <!--<div class="page-header">-->
-                 <!--<h4 class="text-info" class="font-weight-bold"><a>{{ans_id.question_id.question}}</a></h4>-->
-                 <!--<h3 class="text-info" class="font-weight-bold"><a>{{ans_id.answer}}</a></h3>-->
 
-            <!--</div>-->
             {% if past_one_hour %}
 
                         <div class="container-fluid">
                             <h3 style="word-wrap: break-word;margin-bottom:50px"><a href="{% url 'quora:all_answers' qid=ans_id.question_id.id   %} ">{{ans_id.question_id.question}}</a></h3>
                     <ul class="list-group">
 
-                        <div class="well well-sm"><span class="glyphicon glyphicon-user" style="margin-right:20px;color:#0000FF"></span><strong>Answered By     {{ans_id.user_id.fname}}</strong></div>
+                        <div class="well well-sm"><div class="round blue"><span class="glyphicon glyphicon-user"></span></div><strong>{{ans_id.user_id.fname}} {{ans_id.user_id.lname}}</strong>
+                        <p><small style="font-size:12px;margin-left:45px">Answered on {{ans_id.ans_date.date}}</small></p></div>
                         <li class="list-group-item"><p class="text-justify" style="word-wrap: break-word;text-align: justify;text-justify: inter-word;
                                             text-indent:1cm;">{{ans_id.answer}}</p></li>
-                        <p style="font-size:17px;">  <strong>Total Upvotes  - <span style="color:red;margin-left:12px">{{ans_id.answer_upvotes}}</span></strong></p>
-                            <div class="well"><h3 id="head1">This Answer has got highest upvotes in past one hour</h3></div>
                       </ul>
+                            <h3 id="io" style="padding:19px;">Total Upvotes</h3>
+                            <div  class="numberCircle">{{ans_id.answer_upvotes}}</div>
                     </div>
 
 
@@ -39,12 +60,13 @@
                             <h3 style="word-wrap: break-word;margin-bottom:50px"><a href="{% url 'quora:all_answers' qid=ans_id.question_id.id   %} ">{{ans_id.question_id.question}}</a></h3>
                     <ul class="list-group">
 
-                        <div class="well well-sm"><span class="glyphicon glyphicon-user" style="margin-right:20px;color:#0000FF"></span><strong>Answered By     {{ans_id.user_id.fname}}</strong></div>
+                        <div class="well well-sm"><div class="round blue"><span class="glyphicon glyphicon-user"></span></div><strong>{{ans_id.user_id.fname}} {{ans_id.user_id.lname}}</strong>
+                        <p><small style="font-size:12px;margin-left:45px">Answered on {{ans_id.ans_date.date}}</small></p></div>
                         <li class="list-group-item"><p class="text-justify" style="word-wrap: break-word;text-align: justify;text-justify: inter-word;
                                             text-indent:1cm;">{{ans_id.answer}}</p></li>
-                        <p style="font-size:17px;">  <strong>Total Upvotes - <span style="color:red;margin-left:12px">{{ans_id.answer_upvotes}}</span></strong></p>
-                            <div class="well"><h3 id="head">This Answer has got highest upvotes through out the website</h3></div>
                       </ul>
+                            <h3 id="io1" style="padding:19px;">Total Upvotes</h3>
+                            <div  class="numberCircle">{{ans_id.answer_upvotes}}</div>
                     </div>
 
 

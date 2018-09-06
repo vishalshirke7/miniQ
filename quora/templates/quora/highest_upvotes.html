@@ -6,6 +6,31 @@
 .list-group > li {margin-bottom: 20px;border:0 none}
 #head {font-family: "Arial Black", Gadget, sans-serif;color:lightsteelgrey;}
 #head1 {font-family: "Arial Black", Gadget, sans-serif;color:lightsteelgrey;}
+
+.numberCircle {
+    width: 60px;
+    margin-left:19px;
+    line-height: 60px;
+    border-radius: 50%;
+    text-align: center;
+    font-size: 32px;
+    border: 2px solid #666;
+}
+.round {
+    display: inline-block;
+    height: 30px;
+    width: 30px;
+    line-height: 30px;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+    background-color: #222;
+    color: #FFF;
+    text-align: center;
+    margin-right:15px;
+}
+.round.blue {
+    background-color: #3EA6CE;
+}
 </style>
 
 {% endblock %}
@@ -21,24 +46,15 @@
             <!--</div>-->
             {% if past_one_hour %}
 
-    <div class="container-fluid">
-        <h3 style="word-wrap: break-word;margin-bottom:50px"><a href="{% url 'quora:all_answers' qid=qun_id.id   %} ">{{qun_id.question}}</a></h3>
-<!--<ul class="list-group">-->
-
-    <!--<div class="well well-sm"><span class="glyphicon glyphicon-user" style="margin-right:20px;color:#0000FF"></span><strong>Answered By     {{ans_id.user_id.fname}}</strong></div>-->
-    <!--<li class="list-group-item"><p class="text-justify" style="word-wrap: break-word;text-align: justify;text-justify: inter-word;-->
-                        <!--text-indent:1cm;">{{ans_id.answer}}</p></li>-->
-    <p style="font-size:17px;">  <strong>Total Upvotes - <span style="color:red;margin-left:12px">{{qun_id.total_upvotes}}</span></strong></p>
-        <div class="well"><h3 id="head1">This question's answers have got highest upvotes in past one hour</h3></div>
-  <!--</ul>-->
-<!--</div>-->
-
-
+                <div class="container-fluid">
+                    <div class="well"><h3 id="head1" style="word-wrap: break-word;"><a href="{% url 'quora:all_answers' qid=qun_id.id   %} ">{{qun_id.question}}</a></h3></div>
+                    <h3 style="padding:19px;">Total Upvotes</h3>
+                    <div  class="numberCircle">{{qun_id.total_upvotes}}</div>
             {% else %}
                 <div class="container-fluid">
-        <h3 style="word-wrap: break-word;margin-bottom:50px"><a href="{% url 'quora:all_answers' qid=qun_id.id   %} ">{{qun_id.question}}</a></h3>
-                    <p style="font-size:17px;">  <strong>Total Upvotes - <span style="color:red;margin-left:12px">{{qun_id.total_upvotes}}</span></strong></p>
-        <div class="well"><h3 id="head">This question's answers have got highest upvotes through out the website</h3></div>
+                    <div class="well"><h3 id="head" style="word-wrap: break-word;"><a href="{% url 'quora:all_answers' qid=qun_id.id   %} ">{{qun_id.question}}</a></h3></div>
+                    <h3 style="padding:19px;">Total Upvotes</h3>
+                    <div  class="numberCircle">{{qun_id.total_upvotes}}</div>
             {% endif %}
 
             {% else %}

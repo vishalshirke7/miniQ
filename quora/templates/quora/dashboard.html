@@ -3,7 +3,31 @@
 {% block stylesheet %}
 <style>
 .panel-default > .panel-heading {background-color:#ffffff;padding-top:5px;padding-bottom:5px;}
+.panel-body {padding-top:8px;padding-bottom:5px;}
 .panel-footer {background-color:#ffffff}
+.round {
+    display: inline-block;
+    height: 30px;
+    width: 30px;
+    line-height: 30px;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+    background-color: #222;
+    color: #FFF;
+    text-align: center;
+    margin-right:15px;
+}
+<!--.round.round-lg {-->
+    <!--height: 40px;-->
+    <!--width: 40px;-->
+    <!--line-height: 40px;-->
+    <!-- -moz-border-radius: 20px;-->
+    <!--border-radius: 20px;-->
+    <!--font-size: 1.5em;-->
+<!--}-->
+.round.blue {
+    background-color: #3EA6CE;
+}
 </style>
 
 {% endblock %}
@@ -18,8 +42,8 @@
                         <div class="panel panel-default">
                             <div class="panel-heading"><h4><strong style="word-wrap: break-word;"><a href="{% url 'quora:all_answers' qid=question.id %}">{{question.question}}</a></strong></h4></div>
                                 {%  for answer in question.answers_set.all|slice:":1" %}
-                            <div class="panel-body"><span class="glyphicon glyphicon-user" style="margin-right:20px;color:#0000FF"></span><strong>{{answer.user_id.fname}}  {{answer.user_id.lname}}</strong></div>
-                                        <div class="panel-body"><p style="word-wrap: break-word;">{{answer.answer}}</p></div>
+                            <div class="panel-body"><div class="round blue"><span class="glyphicon glyphicon-user"></span></div><strong>{{answer.user_id.fname}}  {{answer.user_id.lname}}</strong></div>
+                                        <div class="panel-body"><p class="text-justify" style="word-wrap: break-word;text-align: justify;text-justify: inter-word;text-indent:2cm;">{{answer.answer}}</p></div>
                                 {% endfor %}
                                 <!--<div class="panel-footer">Published on {{question.date}} </div>-->
                          </div>
@@ -39,8 +63,8 @@
                         <div class="panel panel-default">
                             <div class="panel-heading"><h4><strong style="word-wrap: break-word;"><a href="{% url 'quora:all_answers' qid=question.id %}">{{question.question}}</a></strong></h4></div>
                             {%  for answer in question.answers_set.all|slice:":1" %}
-                                    <div class="panel-body"><span class="glyphicon glyphicon-user" style="margin-right:20px;color:#0000FF"></span><strong>{{answer.user_id.fname}}  {{answer.user_id.lname}}</strong></div>
-                                    <div class="panel-body"><p style="word-wrap: break-word;">{{answer.answer}}</p></div>
+                            <div class="panel-body"><div class="round blue"><span class="glyphicon glyphicon-user"></span></div><strong>{{answer.user_id.fname}}  {{answer.user_id.lname}}</strong></div>
+                                    <div class="panel-body"><p class="text-justify" style="word-wrap: break-word;text-align: justify;text-justify: inter-word;text-indent:2cm;">{{answer.answer}}</p></div>
                             {% endfor %}
                             <!--<div class="panel-footer">Published on {{question.date}}</div>-->
                         </div>
