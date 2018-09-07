@@ -38,7 +38,7 @@
 - Contains all the questions and total upvotes for each question
 - A foreign key reference to User is been made to track which user has asked the question
 - It has a total upvotes field which contains total upvotes for a question
-- A questions upvotes is the sum of upvotes of all of it's answeres
+- A question's upvotes is the sum of upvotes of all of it's answers
 ```
 3. Answers model
 ```
