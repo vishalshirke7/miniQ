@@ -16,10 +16,14 @@ urlpatterns = [
     path('all_upvoted_answers/', views.individual_upvoted, name='individual_upvoted'),
     path('question_answered/', views.addanswer, name='addanswer'),
     path('all_answers/<int:qid>', views.all_answers, name='all_answers'),
-    path('highest_upvoted_question/', views.past_hour_highest_votes, name='past_hour_highest_votes'),
-    path('highest_upvoted_question_ever/', views.highest_upvoted_question, name='highest_upvoted_question'),
-    path('highest_upvoted_answer/', views.past_hour_highest_votes_answer, name='past_hour_highest_votes_answer'),
-    path('highest_upvoted_answer_ever/', views.highest_upvoted_answer, name='highest_upvoted_answer'),
+    path('highest_upvoted_question/', views.past_hour_highest_votes,
+         name='past_hour_highest_votes'),
+    path('highest_upvoted_question_ever/', views.highest_upvoted_question,
+         name='highest_upvoted_question'),
+    path('highest_upvoted_answer/', views.past_hour_highest_votes_answer,
+         name='past_hour_highest_votes_answer'),
+    path('highest_upvoted_answer_ever/', views.highest_upvoted_answer,
+         name='highest_upvoted_answer'),
     path('ajax/send_votes/', views.ans_upvotes, name='ans_upvotes'),
     path('ajax/send_upvoters_list/', views.see_all_upvoters, name='see_all_upvoters')
 ]

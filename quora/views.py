@@ -1,13 +1,14 @@
 import datetime
-
+from django.http import JsonResponse
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
+
 from quora.decorators import myuser_login_required
 from quora.random_string_generator import random_string_generator_c
 from .forms import SignupForm, LoginForm, QuestionForm, AnswerForm
 from .models import User, Question, Answers, Upvotes
-from django.http import JsonResponse
+
 # Create your views here.
 
 
@@ -93,7 +94,8 @@ def addanswer(request):
             answer_text = " ".join(answer_ip.split())
             userid = request.session['user_id']
             user = User.objects.get(pk=userid)
-            answer = Answers(answer=answer_text, question_id=question, user_id=user)
+            answer = Answers(answer=answer_text, question_id=question,
+                             user_id=user)
             answer.save()
             return HttpResponseRedirect(reverse('quora:home'))
     else:
@@ -160,14 +162,15 @@ def ans_upvotes(request):
         user = User.objects.get(pk=userid)
         ansid = request.GET.get('ansid', None)
         answer = Answers.objects.get(pk=ansid)
-        is_voted = Upvotes.objects.filter(upvoted_user=user,upvoted_answer=answer).exists()
+        is_voted = Upvotes.objects.filter(upvoted_user=user,
+                                          upvoted_answer=answer).exists()
         if is_voted is False:
-            answer.answer_upvotes +=1
+            answer.answer_upvotes += 1
             answer.save()
             send_upvotes = answer.answer_upvotes
             question = Question.objects.get(pk=answer.question_id.id)
-            print(question)
-            question.total_upvotes+=1
+            # print(question)
+            question.total_upvotes += 1
             question.save()
             now = datetime.datetime.now()
             upvotes = Upvotes(upvoted_user=user, upvoted_answer=answer, vote_date=now)
@@ -184,7 +187,7 @@ def ans_upvotes(request):
             'not_loggedin': True,
             'notify':  'You have to log in to upvote any answer!'
         }
-    print(data)
+    # print(data)
     return JsonResponse(data)
 
 
@@ -287,8 +290,8 @@ def see_all_upvoters(request):
     upvotes = Upvotes.objects.filter(upvoted_answer=answer)
     upvoters = []
     for i in upvotes:
-        upvoters.append(i.upvoted_user.fname+" "+i.upvoted_user.lname)
-    data={
+        upvoters.append(i.upvoted_user.fname + " " + i.upvoted_user.lname)
+    data = {
         'upvoters': upvoters
     }
     return JsonResponse(data)
@@ -300,12 +303,3 @@ def handler404(request):
 
 def handler500(request):
     return render(request, 'quora/error_500.html', status=500)
-
-# def questionList(request):
-#     if 'user_id' in request.session:
-#         userid = request.session['user_id']
-#         questions = Question.objects.all()
-#         return render(request, 'quora/questionList.html', {'questions': questions})
-#     else:
-#         return render(request, 'quora/login.html')
-#
